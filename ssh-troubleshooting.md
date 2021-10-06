@@ -15,11 +15,11 @@ and compare its outputted hashes with the hashes listed on github. The hash will
 3. Run this command:  
 `ssh -T git@github.com`  
 Expected output if your SSH is configured properly should be:  
-> Hi \<your-github-username\>! You've successfully authenticated, but GitHub does not provide shell access.  
+`Hi <your-github-username>! You've successfully authenticated, but GitHub does not provide shell access.`  
 If you see this message and are still being prompted to enter a password when pushing, you messed up on 2. Follow instructions on 4.
 
 4. If you keep getting an authentication error for using a password to push even though you set up SSH correctly, it's because you messed up #2. above and need to fix the remote path. While in the local repository, try this command:  
-`git remote set-url origin git@github.com:\<github-user\>/\<repository\>.git`  
+`git remote set-url origin git@github.com:<github-user>/<repository>.git`  
 (make sure to replace the content in the brackets with your own info)
 
 ---
