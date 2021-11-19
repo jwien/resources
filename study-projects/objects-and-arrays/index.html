@@ -2,9 +2,391 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
     <title>Objects and Arrays</title>
 </head>
 <body>
+<section id="main-content" class="container">
+    <h1>Arrays and Objects, Objects and Arrays</h1>
+    <hr>
+    <section id="arrays-review" class=" p-1">
+        <h2>Array review:</h2>
+        <section id="what-arrays">
+            <h3>What are arrays?</h3>
+            <p>An array is a special kind of data structure that contains mutliple values in a single structure.
+                To quote MDN: </p>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">
+                <em>"Arrays are list-like objects whose prototype has methods to perform traversal and mutation
+                    operations."</em>
+            </a><br><br>
+            <p>What the heck does that mean?</p>
+            <p>In human language, arrays are things that can contain some number of values, from 0 to infinity. While an
+                array can contain all these different values, in order to not get overwhelmed, we need to 'destructure' this
+                concept.</p>
+            <p>If we rephrase the MDN definition and remove all the things that we don't know or care about, we can
+                attain this:</p>
+            <p><em>Arrays are like a list with tools built in to help us look through and change themselves.</em></p>
+            <p>There are two important things to take away from this:</p>
+            <ul>
+                <li>Arrays are like lists of things.</li>
+                <li>Arrays have helpful tools to make reading and writing to their things easier.</li>
+            </ul>
+            <p>When we say arrays are like a list of things, it's important to understand this is a very specific
+            state of being. Arrays contain things which contain values. We refer to these things as "elements".
+            Elements contain values, and arrays contain elements. Arrays do not contain values, they contain
+            <em>references to elements which contain values.</em></p>
+            <p>These elements can be anything, be it a number, a string, a boolean, or even whole objects that contain
+                within themselves many different values, including nested within themselves other objects and even other
+                arrays!</p>
+            <p>As accessing an array's values is a more laborious process than simply interacting with a basic variable,
+                it's reasonable to ask why we would bother with arrays when variables work fine and are easier to work
+                with. This is a perfectly valid question and it is one you will ask yourself often when writing code.
+                However, arrays can be much easier to work with than dozens of differently named variables when it comes
+                 to larger data sets.</p>
+            <p>For example, let's look back at an old exercise we did towards the beginning of JavaScript 1. We were
+                given this array: </p>
+            <p><code>var fruits = ["apple", "banana", "orange", "apple", "pineapple"];</code></p>
+            <p>Hypothetically, we could simply have a list of variables like <code>var fruitApple = "apple";
+                var fruitBanana = "banana"</code>... etc. What is the benefit of grouping them in an array?</p>
+            <p>With an example array this simple, it's understandable. However, if this was actually a massive project,
+                with every kind of fruit in the world, it would be kind of a chore to remember every single different kind
+                of fruit. Plus, we have repeated information. Your computer, while it knows what a variable is called,
+                doesn't really care what it is called. Our variable names are for us and other humans to read, not the
+                computer's JavaScript engine. And, if we consider again the hypothetical scenario of having a
+                fruit*fruitname* = *fruitname* definition for all the thousands of fruits on the planet, we would spend
+                so much time just remembering all the slightly different spellings and varieties if we wanted to do
+                computation and reference all these different fruits. Since these variables are so similar in structure
+                if not content, we can actually make our lives easier by grouping them together in an array.</p>
+            <br>
+            <h3>The life and death of arrays</h3>
+            <p>We can create an array in multiple ways. The first option is explicit definition.</p>
+            <p><code>var fruits = ["apple"];</code></p>
+            <p>We can describe what happens here in
+                English, step-by-step. From right to left:</p>
+            <ol>
+                <li><code>var</code> We instruct the computer to find a place in its memory for a new variable.</li>
+                <li><code>var fruits</code> We tell the computer to reference this variable as fruits</li>
+                <li><code>var fruits =</code> We tell the computer we would like to assign some value to this varaible</li>
+                <li><code>var fruits = []</code> We tell the computer that this variable will have a type of Array</li>
+                <li><code>var fruits = ["apple"]</code>We tell the computer that this array contains at the top of its
+                list, a string with a value of "apple"</li>
+            </ol>
+            <p>While it is a very simple operation to us, for the computer is a monumental task. We are saved the agony
+            of manually assigning this array's reference to the computer's memory, as well as providing another reference
+            to the actual value of this "apple" string so that the array can find it in its index.</p>
+            <p>However, it is important to understand that this process is <em>actually happening</em> in case something
+            goes wrong. Understanding the reality of arrays is very helpful to understanding <em>why</em> we use them.</p>
+            <p>In addition to explicit assignment of array values, we can also create an array that is empty.
+            <p><code>var fruits = [];</code></p>
+            <p>Step-by-step again:</p>
+            <ol>
+                <li><code>var</code></li> We tell the computer to find a place in memory
+                <li><code>var fruits</code></li> We tell the computer we will reference this variable as "fruits"
+                <li><code>var fruits =</code></li> We tell the computer we are going to give it an assignment
+                <li><code>var fruits = []</code></li> We tell the computer that this variable will be an array type
+            </ol>
+            <p>Sometimes we need an array that we intend to fill up with data through some other process. Empty arrays
+            have many uses, but most commonly are used as a "bucket" for filling with data from some function or method.
+            </p>
+            <p>So, how are we supposed to interact with it?</p>
+            <br>
+            <h3>Arrays and Index</h3>
+            <p>If you remember, arrays do not contain values. Arrays contain a list of <em>references TO values OR other
+                references.</em> We can access the array's reference's values by multiple means, but the most basic way
+                is via the array's index. Going back to the fruits array, we could use the array's index to access the
+                strings inside of it. For example,</p>
+            <p><code>fruits[0]</code></p>
+            <p>would evaluate to</p>
+            <samp>"apple"</samp>
+            <p>Arrays are "zero index", which means their first reference will be at index 0. The second will be at
+                index 1. This may feel annoying to have to work with, but luckily JavaScript's arrays give you ways to
+                deal with this in very convenient ways once you understand how they work. Which brings us to our next
+                section...</p>
+        </section>
 
+        <section id="array-methods">
+            <h3>Array methods</h3>
+            <p>All arrays have tools built in to enable us to intuitively interact with their contents. Most of the
+                time you will use these tools instead of direct index access like <code>fruits[0]</code>. These tools
+                are called "methods". You may remember that a function inside of an object is called a method. Well,
+                if you want to know a secret, arrays are actually objects! We can get into this later but it's not
+                a concern for now.</p>
+            <p>If, for instance, you wanted to print out all the strings inside of fruits, you could approach it like
+                this:</p>
+            <pre><code>
+                for (var i = 0; i < fruits.length; i++) {
+                    console.log(fruits[i]);
+                }
+            </code></pre>
+            <p>The console output for this would look like </p>
+            <pre><samp>
+                "apple"
+                "banana"
+                "orange"
+                "apple"
+                "pinapple"
+            </samp></pre>
+            <p>It does its job, but there are some issues with this. First of all, the for loop is not the easiest thing
+            to read or write. It's not very "human readable" in the grand scheme of things. The for loop is useful, but
+            JavaScript arrays have their built-in "tools" or methods to help us out.</p>
+            <pre><code>
+                fruits.forEach(function (fruit) {
+                    console.log(fruit);
+                });
+            </code></pre>
+            <p>Output:</p>
+            <pre><samp>
+                "apple"
+                "banana"
+                "orange"
+                "apple"
+                "pinapple"
+            </samp></pre>
+            <p>Here we use a .forEach loop to accomplish the same task. It's a little more readable, and we can ignore the
+            index of the array and have a much more intuitive sense that each fruit inside the array is being logged.
+            However, it is very important to understand what is happening here.</p>
+            <p>.forEach() is a method that is part of all arrays. For a parameter, it takes a function. We can write an
+                'instantaneously executed function', or a pre-written function we have written elsewhere. The most
+            important aspect of this is the truth of where "fruit" came from. "fruit" is absolutely a variable, but
+            where did it come from? The reality of the situation is that "fruit" does not really exist outside of fruits
+            or even at all. Its name is irrelevant, it's merely a name we can use to work with the fruits array. We
+            could have called it anything. For example, let's rewrite this loop: </p>
+            <pre><code>
+                fruits.forEach(function (bobDylan) {
+                    console.log(bobDylan);
+                });
+            </code></pre>
+            <p>Output:</p>
+            <pre><samp>
+                "apple"
+                "banana"
+                "orange"
+                "apple"
+                "pinapple"
+            </samp></pre>
+            <p>I promise you, it's exactly the same. That fruit variable is just a convenient way of describing each
+            element of the array as the loop iterates through it. I'm going to rewrite the .forEach loop to expose its
+            secrets:</p>
+            <pre><code>
+                fruits.forEach(function (fruitsElement, currentIndex, fruitsArray) {
+                    console.log(fruitsElement);
+                    console.log(fruitsArray[currentIndex]);
+                });
+            </code></pre>
+            <pre><samp>
+                "apple"
+                "apple"
+                "banana"
+                "banana"
+                "orange"
+                "orange"
+                "apple"
+                "apple"
+                "pineapple"
+                "pineapple
+            </samp></pre>
+            <p>.forEach gives you choices. Most of the time, when using it, you just want to do something to each
+            element in the array's list. Be it printing out all its strings, or adding 5 to each number, or changing
+            each object the array contains, we can just use the most simple form of .forEach:</p>
+            <p><code>.forEach(element)</code></p>
+            <p>When I say .forEach gives you choices, I mean that .forEach gives you <em>up to three</em> different
+            things from the array you can use on the array. The first it gives you is the current element the for
+            loop is on. It's essentially equivalent to <code>fruits[i]</code> in the basic for loop.</p>
+            <p>The second option is it gives you both the current element of the array, and the current index that the
+            loop (and the element it's given you) is at. It's the equivalent of <code>i</code> in the basic for loop.
+            </p>
+            <p>The third option gives you three values: the current element, the current index, and a reference to the
+            array that is currently being run through .forEach. It's the equivalent of <code>fruits</code> itself in
+            the basic for loop. I will write a new .forEach loop and a new for loop comparing them.</p>
+            <p>First, the basic for loop:</p>
+            <pre><code>
+                for (var i = 0; i < fruits.length; i++) {
+                    console.log(fruits[i]);
+                }
+            </code></pre>
+            <p>Again, the .forEach method:</p>
+            <pre><code>
+                fruits.forEach(function (element, index, array) {
+                    console.log(element);
+                    console.log(array[index]);
+                });
+            </code></pre>
+            <p>In the forEach loop, both console.logs would produce the same output. The first (element) console.log
+            would be the easier method, and the more readable version. The second (array[index]) console.log is using
+            the forEach loop exactly like a regular for loop. .forEach is very powerful, and you can do some really cool
+            stuff with it, but in most cases we probably just want to read each value in an array and do something with
+            them. If you instead want to do something with certain indices in an array and do something else with the
+                others, .forEach is the right tool for the job. If, for example, you only wanted to print out every
+                other fruit in fruits, you could write:</p>
+            <pre><code>
+                fruits.forEach(function (element, index) {
+                    if (index % 2 === 0) {
+                        console.log(element);
+                    }
+                });
+            </code></pre>
+            <p>This would only print out the values of even numbered index elements inside the fruits array, ignoring
+                the odd index elements. But what about when you just want to do something to each and every element in
+                the array? This brings me to my simpler alternative for this more simple case.</p>
+            <p>The "for...in..." loop. For when you just need to do something simple with everything in an array.</p>
+            <pre><code>
+                for (var fruit of fruits) {
+                    console.log(fruit);
+                }
+            </code></pre>
+            <p>This very simple block of code will print each and every element in fruits. Again, the variable 'fruit'
+            is just a handy little reference we are given BY the array for convenience of readable access to its
+            contents. <code>for(var bobDylan of fruits) {</code> would work just as well!</p>
+            <h4>What about doing other stuff with array methods?</h4>
+            <p>We can also add and remove elements from arrays after they've been created. Because arrays require the
+            computer to rummage around in its memory and make space for arrays, we have to be careful with how we change
+            them. This is why we use <code>.push()</code> to add an item to the end of an array and
+                <code>.unshift()</code> to add something to the beginning, and <code>.pop()</code> to remove the last
+                item in the array and <code>.shift()</code> to remove the first item. When we change how big an array is, the
+            computer has to go and find new places to keep the reference to the new element, the value of the element,
+            the array's own knowledge of how big it is, and all the other little details about this kind of thing. It's
+            a more complex process than just making a new variable on its own. Imagine having to make your own array-like
+            object *without* using the built in arrays. It's a lot of stuff to keep track of and making it so that it
+            can handle as many elements as you want and have all those convenient methods that real arrays have. As
+            weird and complex as arrays are, we're lucky to have these array methods. It's a lot lot lotttt worse in
+            other languages!</p>
+            <hr>
+        </section>
+    </section>
+
+    <br>
+    <br>
+
+    <section id="objects-review" class="">
+        <section id="what-objects">
+            <h2>Objects</h2>
+            <h4>What is an object?</h4>
+            <p>Objects in Javascript are something we have not covered in as much detail as arrays in our class. We
+            work with them a lot, but they are a deep hole to fall into. Objects are actually very similar to Arrays in
+            javascript. For now, this is pretty much all we need to know. Objects are similar to Arrays in that they
+            can contain more than one value, and that they have methods. Objects are different from Arrays in that the
+            values they hold are stored and accessed a little differently.</p>
+            <p>The key difference is that in Arrays, its elements are stored with an Index. Objects also have something
+            like an index. But usually, the way we access the values of the things it is referencing is with a "key" or
+            with a "method".</p>
+            <h5>ALL OBJECTS ARE SIMPLY A REFERENCE TO A LIST OF KEY: VALUE PAIRS</h5>
+            <pre><code>
+                var anObject = {
+                        aKey: 'value',
+                    otherKey: 'value',
+                     anArray: fruits
+                }
+
+            </code></pre>
+            <p>Here we are creating a new object and storing it into a variable called "anObject". The variable <em>does
+            not contain the keys and values</em> the variable is a reference to a list of keys, and the keys reference
+            their values.</p>
+            <p>Objects can have almost any sort of data in its values: strings, numbers, booleans, arrays, other objects,
+            functions. They are a convenient way of grouping data that are related to each other. For example, in the
+            coffee project, each entry in the coffees array contained a 'name' key (contained a string), a 'roast' key
+            (contained a string), and an 'id' (contained a number).</p>
+            <p>We can access the data in an object through several different kind of syntax. Going back to the
+                'anObject' above, if I wanted to access the value of its 'aKey' property, we could use
+            <code>anObject.aKey</code> or we could use array-style bracket access like <code>anObject['aKey']</code> .
+            We can also store and access arrays inside of objects! With the above as an example, suppose I wanted to
+            get the value of the first item inside of anObject's 'anArray' property. We can use </p>
+            <p><code>anObject.anArray[0]</code></p>
+            <p>And, as the anObject's anArray key was given a reference to the fruits array from the array section
+            above this, we would expect the ouptut to be "apple"! This would also be valid: </p>
+            <p><code>anObject[anArray[0]]</code></p>
+            <p>It's a little bit uglier, but it can make more sense sometimes with more nested objects and arrays.
+            Remember, you write code for other people to read, not for the computer to read!</p>
+            <p>For clarification, the following is NOT valid: </p>
+            <p><code>anObject.fruits[0]</code></p>
+            <p>While we assigned the 'anArray' key to a reference to the fruits array, 'anArray' has no clue who fruits
+            is beyond simply knowing its value is some kind of array, and anObject has no key named 'fruits'.</p>
+        </section>
+    </section>
+
+    <br>
+    <br>
+
+    <section id="arrays-of-objects" class="">
+        <h2>Objects inside of Arrays</h2>
+        <p>Now that we've discussed a bit more about what Arrays and Objects really are, let's discuss their most
+        confusing interaction: arrays OF objects.</p>
+        <p>Let's look at an example from our recent coffee project. <code>coffees</code> was an array of objects, and
+        each object contained properties of a certain kind of coffee.</p>
+        <p><strong>Question:</strong> <em>What are the coffee elements inside of the coffees array called?</em></p>
+        <pre><code>
+        let coffees = [
+            {id: 1, name: 'Light City', roast: 'light'},
+            {id: 2, name: 'Half City', roast: 'light'},
+            {id: 3, name: 'Cinnamon', roast: 'light'},
+            {id: 4, name: 'City', roast: 'medium'},
+            {id: 5, name: 'American', roast: 'medium'}
+            ];
+        </code></pre>
+        <p><strong>Answer:</strong> They are nameless. coffees is an array, which only contains an index of elements.</p>
+        <p>There is no 'coffee'. We can talk about the elements in the array, which are objects, but these objects have
+        no name. The only way we can talk about them or talk to them, is by accessing the coffees array through an
+        array index access (<code>coffee[index]</code>) or by using an Array method on coffees.</p>
+        <p>"coffee" is not real! There is no coffee, it does not exist! However, it might be convenient if, when working
+        on the coffees array, we can access each element and have a convenient name to reference the objects in the
+        array.</p>
+        <p>Let's return to .forEach() and for...in... for a moment. When we want to display all the coffees in the
+        coffee project, we have to go through all of the coffees array and check each one to see if it matched our
+        criteria. When we use .forEach() or for...in..., we can use the element parameter the method lets us access to
+        address each object inside the array as an individual. It'd be quite convenient to call each element "coffee"
+        when we are checking if "coffee" this and if "coffee" that, right? The alternative would be a basic for loop
+        where we reference each element in the coffees array as <code>coffees[i]</code> and that's just nowhere near
+        as readable.</p>
+        <pre><code>
+            for (let coffee of coffees) {
+                doStuffWithCoffee(coffee)
+                renderCoffee(coffee);
+            }
+        </code></pre>
+        <p> ...or...</p>
+        <pre><code>
+            for (let i = 0; i < coffees.length; i++) {
+                doStuffWithCoffee(coffees[i]);
+                renderCoffee(coffees[i]);
+            }
+        </code></pre>
+        <p>Which of these is easier to read and see what exactly is happening?</p>
+        <br>
+        <h4>Accessing the properties of an object in an array</h4>
+        <p>What if we need to read the properties of an object in an array? Well, we can still use that old syntax,
+        just it can look a little weird until you get used to it. Remember we work from left to right. If we wanted
+        to get the first object in coffees and print out its roast type, we can just use
+            <code>console.log( coffees[0].roast );</code></p>
+        <p>This happens in a few steps so lets go one step at a time</p>
+        <ol>
+            <li><code>coffees</code> we tell the computer we want to access the array "coffees"</li>
+            <li><code>coffees[0]</code> we tell the computer we want the element at index 0 of the array "coffees"</li>
+            <li><code>coffees[0].</code> we tell the computer we want to access a specific key inside of the
+            object inside of the "coffees" array at index 0</li>
+            <li><code>coffees[0].roast</code> we tell the computer we want the value from the key "roast" inside the object
+            that is inside the "coffees" array at index 0</li>
+        </ol>
+        <p>This can actually go on and on and on! If we had something in a project with a dozen layers of objects and
+            arrays, this would be valid:</p>
+        <pre><code>
+            // we want to access the value of:
+            // the 17th state's capital city's mayor's house's second room's wall paint color.
+            USAstates[17].capital.mayors[0].house.rooms[1].wall.paintColor
+        </code></pre>
+    </section>
+    <br>
+    <br>
+    <section>
+        <h2>What's next?</h2>
+        <p>I have written a couple of short little exercises in the included app.js. I'd be happy to work through them
+            with you whenever you feel like trying them out!</p>
+    </section>
+
+</section>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+<script src="app.js"></script>
 </body>
 </html>
