@@ -11,7 +11,7 @@
 <section id="main-content" class="container">
     <h1>Arrays and Objects, Objects and Arrays</h1>
     <hr>
-    <section id="arrays-review" class="border p-1">
+    <section id="arrays-review" class=" p-1">
         <h2>Array review:</h2>
         <section id="what-arrays">
             <h3>What are arrays?</h3>
@@ -63,7 +63,7 @@
             <h3>The life and death of arrays</h3>
             <p>We can create an array in multiple ways. The first option is explicit definition.</p>
             <p><code>var fruits = ["apple"];</code></p>
-            <p>Remembering that we call the single equal sign an "operator", we can describe what happens here in
+            <p>We can describe what happens here in
                 English, step-by-step. From right to left:</p>
             <ol>
                 <li><code>var</code> We instruct the computer to find a place in its memory for a new variable.</li>
@@ -256,7 +256,10 @@
         </section>
     </section>
 
-    <section id="objects-review">
+    <br>
+    <br>
+
+    <section id="objects-review" class="">
         <section id="what-objects">
             <h2>Objects</h2>
             <h4>What is an object?</h4>
@@ -300,14 +303,12 @@
             <p>While we assigned the 'anArray' key to a reference to the fruits array, 'anArray' has no clue who fruits
             is beyond simply knowing its value is some kind of array, and anObject has no key named 'fruits'.</p>
         </section>
-
-        <section id="object-methods">
-
-        </section>
-
     </section>
 
-    <section id="arrays-of-objects">
+    <br>
+    <br>
+
+    <section id="arrays-of-objects" class="">
         <h2>Objects inside of Arrays</h2>
         <p>Now that we've discussed a bit more about what Arrays and Objects really are, let's discuss their most
         confusing interaction: arrays OF objects.</p>
@@ -337,6 +338,49 @@
         when we are checking if "coffee" this and if "coffee" that, right? The alternative would be a basic for loop
         where we reference each element in the coffees array as <code>coffees[i]</code> and that's just nowhere near
         as readable.</p>
+        <pre><code>
+            for (let coffee of coffees) {
+                doStuffWithCoffee(coffee)
+                renderCoffee(coffee);
+            }
+        </code></pre>
+        <p> ...or...</p>
+        <pre><code>
+            for (let i = 0; i < coffees.length; i++) {
+                doStuffWithCoffee(coffees[i]);
+                renderCoffee(coffees[i]);
+            }
+        </code></pre>
+        <p>Which of these is easier to read and see what exactly is happening?</p>
+        <br>
+        <h4>Accessing the properties of an object in an array</h4>
+        <p>What if we need to read the properties of an object in an array? Well, we can still use that old syntax,
+        just it can look a little weird until you get used to it. Remember we work from left to right. If we wanted
+        to get the first object in coffees and print out its roast type, we can just use
+            <code>console.log( coffees[0].roast );</code></p>
+        <p>This happens in a few steps so lets go one step at a time</p>
+        <ol>
+            <li><code>coffees</code> we tell the computer we want to access the array "coffees"</li>
+            <li><code>coffees[0]</code> we tell the computer we want the element at index 0 of the array "coffees"</li>
+            <li><code>coffees[0].</code> we tell the computer we want to access a specific key inside of the
+            object inside of the "coffees" array at index 0</li>
+            <li><code>coffees[0].roast</code> we tell the computer we want the value from the key "roast" inside the object
+            that is inside the "coffees" array at index 0</li>
+        </ol>
+        <p>This can actually go on and on and on! If we had something in a project with a dozen layers of objects and
+            arrays, this would be valid:</p>
+        <pre><code>
+            // we want to access the value of:
+            // the 17th state's capital city's mayor's house's second room's wall paint color.
+            USAstates[17].capital.mayors[0].house.rooms[1].wall.paintColor
+        </code></pre>
+    </section>
+    <br>
+    <br>
+    <section>
+        <h2>What's next?</h2>
+        <p>I have written a couple of short little exercises in the included app.js. I'd be happy to work through them
+            with you whenever you feel like trying them out!</p>
     </section>
 
 </section>
